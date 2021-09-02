@@ -1,0 +1,28 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo '⚒ 👷 Styling, formatting and testing project before committing 🚡🚀'
+
+# Check tsconfig standards
+npm run check-types ||
+(
+    echo '🤮🤧 Failed type check ❗❗❗'
+    false;
+)
+
+# Check Prettier standards
+npm run format ||
+(
+    echo '🤯🥵 Failed Prettier, something looks disgusting ❗❗❗'
+    false;
+)
+
+# Check EsLint standards
+npm run lint ||
+(
+    echo '🤬🤡 Failed EsLint, are your serious to push this code ❗❗❗'
+    false;
+)
+
+# If it builds we can commit
+echo '✔ 💪👏👊 You won body... Commit looks well 🛸🛰 🚙';
