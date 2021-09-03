@@ -68,6 +68,7 @@ node_modules/
 *.log
 .nvm
 /bots/node_modules/
+.env
 
 # BUCK
 buck-out/

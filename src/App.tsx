@@ -1,30 +1,47 @@
 import React from "react";
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, View} from "react-native";
+import {BottomNavigation, Text} from "react-native-paper";
+
+const HomeRoute = () => <Text>HomeRoute</Text>;
+
+const SearchRoute = () => <Text>SearchRoute</Text>;
 
 const App = (): JSX.Element => {
+    const [index, setIndex] = React.useState(0);
+    const [routes] = React.useState([
+        {key: "home", title: "Home", icon: "home", color: "#009688"},
+        {key: "search", title: "Search", icon: "search-web", color: "#795548"}
+    ]);
+
+    const renderScene = BottomNavigation.SceneMap({
+        home: HomeRoute,
+        search: SearchRoute
+    });
+
     return (
-        <View>
+        <View style={styles.contain}>
             <Text>Welcome to Fiqeph</Text>
+            <BottomNavigation
+                navigationState={{index, routes}}
+                onIndexChange={setIndex}
+                renderScene={renderScene}
+            />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    sectionContainer: {
-        marginTop: 32,
-        paddingHorizontal: 24
+    contain: {
+        display: "flex",
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "center"
     },
-    sectionTitle: {
-        fontSize: 24,
-        fontWeight: "600"
-    },
-    sectionDescription: {
-        marginTop: 8,
-        fontSize: 18,
-        fontWeight: "400"
-    },
-    highlight: {
-        fontWeight: "700"
+    bottom: {
+        position: "absolute",
+        left: 0,
+        right: 0,
+        bottom: 0
     }
 });
 
