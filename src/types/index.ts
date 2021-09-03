@@ -33,3 +33,9 @@ export interface HomeScreenProps {
         navigate(route: string): void;
     };
 }
+
+export interface SearchComponentProps {
+    navigation: {
+        navigate(route: string): void;
+    };
+}
