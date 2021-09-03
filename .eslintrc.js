@@ -18,7 +18,8 @@ module.exports = {
     plugins: ["react", "react-hooks", "prettier", "@typescript-eslint"],
     rules: {
         "prettier/prettier": "error",
-        "@typescript-eslint/explicit-module-boundary-types": "off"
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "react/display-name": "off"
     },
     settings: {
         react: {

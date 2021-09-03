@@ -9,7 +9,7 @@ const Cart: React.FC<CardComponentProps> = (props): JSX.Element => {
         <>
             {cardData.length > 0 ? (
                 cardData.map(card => (
-                    <Card key={card.id}>
+                    <Card key={card.id} onPress={() => props.navigation.navigate("Detail")}>
                         <Card.Cover source={{uri: card.uri}} />
                         <Card.Actions>
                             <IconButton
@@ -28,7 +28,7 @@ const Cart: React.FC<CardComponentProps> = (props): JSX.Element => {
                     </Card>
                 ))
             ) : (
-                <Card>
+                <Card onPress={() => props.navigation.navigate("Detail")}>
                     <Card.Cover source={{uri: "https://picsum.photos/600"}} />
                     <Card.Actions>
                         <IconButton
