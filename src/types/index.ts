@@ -39,3 +39,20 @@ export interface SearchComponentProps {
         navigate(route: string): void;
     };
 }
+
+export type Error = {
+    message: string;
+};
+
+export type Actions = {
+    type: string;
+    actions: {
+        [key: string]: string;
+    };
+};
+
+export type AppState = {
+    appReducer: {
+        downloaded: boolean;
+    };
+};
