@@ -1,0 +1,3 @@
+// App Types
+export const DOWNLOAD_IMAGE = "DOWNLOAD_IMAGE";
+export const DOWNLOADED_IMAGE = "DOWNLOADED_IMAGE";
