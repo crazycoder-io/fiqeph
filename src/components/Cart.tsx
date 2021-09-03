@@ -1,4 +1,5 @@
 import React from "react";
+import {StyleSheet} from "react-native";
 import {Card, IconButton, Colors} from "react-native-paper";
 import {CardComponentProps} from "../types";
 
@@ -9,7 +10,10 @@ const Cart: React.FC<CardComponentProps> = (props): JSX.Element => {
         <>
             {cardData.length > 0 ? (
                 cardData.map(card => (
-                    <Card key={card.id} onPress={() => props.navigation.navigate("Detail")}>
+                    <Card
+                        key={card.id}
+                        style={styles.card}
+                        onPress={() => props.navigation.navigate("Detail")}>
                         <Card.Cover source={{uri: card.uri}} />
                         <Card.Actions>
                             <IconButton
@@ -28,7 +32,7 @@ const Cart: React.FC<CardComponentProps> = (props): JSX.Element => {
                     </Card>
                 ))
             ) : (
-                <Card onPress={() => props.navigation.navigate("Detail")}>
+                <Card style={styles.card} onPress={() => props.navigation.navigate("Detail")}>
                     <Card.Cover source={{uri: "https://picsum.photos/600"}} />
                     <Card.Actions>
                         <IconButton
@@ -49,5 +53,12 @@ const Cart: React.FC<CardComponentProps> = (props): JSX.Element => {
         </>
     );
 };
+
+const styles = StyleSheet.create({
+    card: {
+        marginTop: 5,
+        marginBottom: 5
+    }
+});
 
 export default Cart;
