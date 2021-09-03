@@ -19,7 +19,8 @@ module.exports = {
     rules: {
         "prettier/prettier": "error",
         "@typescript-eslint/explicit-module-boundary-types": "off",
-        "react/display-name": "off"
+        "react/display-name": "off",
+        "@typescript-eslint/restrict-plus-operands": "off"
     },
     settings: {
         react: {
