@@ -1,48 +1,20 @@
 import React from "react";
-import {StyleSheet, View} from "react-native";
-import {BottomNavigation, Text} from "react-native-paper";
+import {NavigationContainer} from "@react-navigation/native";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {BottomNavigation} from "./components";
+import {HomeScreen, SearchScreen} from "./screens";
 
-const HomeRoute = () => <Text>HomeRoute</Text>;
-
-const SearchRoute = () => <Text>SearchRoute</Text>;
+const Tab = createBottomTabNavigator(); // Create a bottom tab navigator through react navigation
 
 const App = (): JSX.Element => {
-    const [index, setIndex] = React.useState(0);
-    const [routes] = React.useState([
-        {key: "home", title: "Home", icon: "home", color: "#009688"},
-        {key: "search", title: "Search", icon: "search-web", color: "#795548"}
-    ]);
-
-    const renderScene = BottomNavigation.SceneMap({
-        home: HomeRoute,
-        search: SearchRoute
-    });
-
     return (
-        <View style={styles.contain}>
-            <Text>Welcome to Fiqeph</Text>
-            <BottomNavigation
-                navigationState={{index, routes}}
-                onIndexChange={setIndex}
-                renderScene={renderScene}
-            />
-        </View>
+        <NavigationContainer>
+            <Tab.Navigator tabBar={BottomNavigation}>
+                <Tab.Screen name="Home" component={HomeScreen} />
+                <Tab.Screen name="Search" component={SearchScreen} />
+            </Tab.Navigator>
+        </NavigationContainer>
     );
 };
-
-const styles = StyleSheet.create({
-    contain: {
-        display: "flex",
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: "center"
-    },
-    bottom: {
-        position: "absolute",
-        left: 0,
-        right: 0,
-        bottom: 0
-    }
-});
 
 export default App;
