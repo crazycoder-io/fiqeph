@@ -1,13 +1,36 @@
 import React from "react";
 import {StyleSheet} from "react-native";
-import {Card, IconButton, Colors} from "react-native-paper";
-import {CardComponentProps} from "../types";
+import {Card, IconButton, Colors, ActivityIndicator, Modal, Portal} from "react-native-paper";
+import {useDispatch, useSelector} from "react-redux";
+import {CardComponentProps, AppState} from "../types";
+import {endDownloadImage, startDownloadImage} from "../store/actions/app";
+import {Share, Download} from "../functions";
 
 const Cart: React.FC<CardComponentProps> = (props): JSX.Element => {
+    const dispatch = useDispatch();
     const {cardData} = props;
+
+    const appProps = useSelector((state: AppState) => state.appReducer);
+
+    const TransparentView = () => (
+        <Portal>
+            <Modal
+                visible={appProps.downloaded}
+                contentContainerStyle={{backgroundColor: "transparent"}}>
+                <ActivityIndicator animating={true} color={Colors.red400} />
+            </Modal>
+        </Portal>
+    );
+
+    const downloadImage = async (uri: string) => {
+        dispatch(startDownloadImage());
+        await Download(uri);
+        dispatch(endDownloadImage());
+    };
 
     return (
         <>
+            <TransparentView />
             {cardData.length > 0 ? (
                 cardData.map(card => (
                     <Card
@@ -20,13 +43,13 @@ const Cart: React.FC<CardComponentProps> = (props): JSX.Element => {
                                 size={20}
                                 icon="share"
                                 color={Colors.blue400}
-                                onPress={() => console.log("Pressed")}
+                                onPress={() => Share(card.uri)}
                             />
                             <IconButton
                                 size={20}
                                 icon="download"
                                 color={Colors.red500}
-                                onPress={() => console.log("Pressed")}
+                                onPress={() => downloadImage(card.uri)}
                             />
                         </Card.Actions>
                     </Card>
