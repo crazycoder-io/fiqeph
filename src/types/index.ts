@@ -31,12 +31,6 @@ export interface HeaderComponentProps {
     };
 }
 
-export interface HomeScreenProps {
-    navigation: {
-        navigate(route: string): void;
-    };
-}
-
 export type Error = {
     message: string;
 };
