@@ -21,7 +21,7 @@ interface PhotosResponseGenerator extends ResponseGenerator {
 interface SearchResponseGenerator extends ResponseGenerator {
     data: {
         total: number;
-        total_pages: 1000;
+        total_pages: number;
         results: Array<PhotoList>;
     };
 }
