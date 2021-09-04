@@ -1,11 +1,12 @@
 import React from "react";
 import {View, StyleSheet, FlatList, Text} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
+import {Title} from "react-native-paper";
 import {Card, TransparentView} from "../components";
-import {AppState, CardData, HomeScreenProps, PhotoSate} from "../types";
+import {AppState, PhotoSate} from "../types";
 import {getImageList} from "../store/actions/photos";
 
-const Home: React.FC<HomeScreenProps> = (props): JSX.Element => {
+const Home = (): JSX.Element => {
     const dispatch = useDispatch();
 
     const [page, setPage] = React.useState(1);
@@ -31,6 +32,7 @@ const Home: React.FC<HomeScreenProps> = (props): JSX.Element => {
                     renderItem={card => <Card cardData={card.item} />}
                 />
             )}
+            {photos_list.length <= 0 && <Title>There is no data to show!</Title>}
         </View>
     );
 };

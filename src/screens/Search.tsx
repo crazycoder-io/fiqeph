@@ -3,10 +3,10 @@ import {View, StyleSheet, FlatList, Text} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import {Searchbar} from "react-native-paper";
 import {Card, TransparentView} from "../components";
-import {SearchComponentProps, SearchSate, AppState} from "../types";
+import {SearchSate, AppState} from "../types";
 import {searchImages} from "../store/actions/search";
 
-const Search: React.FC<SearchComponentProps> = props => {
+const Search = () => {
     const dispatch = useDispatch();
 
     const [searchQuery, setSearchQuery] = React.useState("");
