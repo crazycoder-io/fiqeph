@@ -27,11 +27,7 @@ const App = (): JSX.Element => {
                         );
                     }
                 }}>
-                <Tab.Screen
-                    name="HomeStack"
-                    component={HomeScreen}
-                    options={{headerTitle: "Home"}}
-                />
+                <Tab.Screen name="Home" component={HomeScreen} options={{headerTitle: "Home"}} />
                 <Tab.Screen
                     name="Search"
                     component={SearchScreen}
