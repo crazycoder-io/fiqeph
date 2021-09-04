@@ -1,40 +1,48 @@
 import React from "react";
-import {View, StyleSheet, ScrollView} from "react-native";
+import {View, StyleSheet, FlatList, Text} from "react-native";
+import {useDispatch, useSelector} from "react-redux";
 import {Searchbar} from "react-native-paper";
-import {PHOTOS} from "../utils/SampleDummyData";
-import {Card} from "../components";
-import {SearchComponentProps, CardData} from "../types";
+import {Card, TransparentView} from "../components";
+import {SearchComponentProps, SearchSate, AppState} from "../types";
+import {searchImages} from "../store/actions/search";
 
 const Search: React.FC<SearchComponentProps> = props => {
+    const dispatch = useDispatch();
+
     const [searchQuery, setSearchQuery] = React.useState("");
-    const [photos, setPhoto] = React.useState<Array<CardData>>([]);
+    const [page, setPage] = React.useState(1);
+
+    const appProps = useSelector((state: AppState) => state.appReducer);
+    const searchProps = useSelector((state: SearchSate) => state.searchReducer);
+    const {search_photos_list, search_photos_list_loading, error} = searchProps;
 
     const onChangeSearch = (query: string) => setSearchQuery(query);
     const makeCall = () => {
-        const n = Math.floor(Math.random() * 10);
-        console.log(n);
-        setPhoto(PHOTOS.splice(n, PHOTOS.length - 1));
+        dispatch(searchImages({page, search: searchQuery}));
     };
 
     React.useEffect(() => {
-        if (searchQuery === "") {
-            console.log("bos");
-            setPhoto([]);
-        }
-    }, [searchQuery]);
+        dispatch(searchImages({page, search: searchQuery}));
+    }, [page]);
 
     return (
         <View style={styles.container}>
+            <TransparentView visible={search_photos_list_loading || appProps.downloaded} />
             <Searchbar
                 placeholder="Search"
                 onChangeText={onChangeSearch}
                 onEndEditing={makeCall}
                 value={searchQuery}
             />
-            {photos.length > 0 && (
-                <ScrollView style={styles.scrollView}>
-                    <Card cardData={photos} navigation={props.navigation} />
-                </ScrollView>
+            {error && <Text>{error}</Text>}
+            {!error && search_photos_list.length > 0 && (
+                <FlatList
+                    data={search_photos_list}
+                    keyExtractor={item => item.id}
+                    onEndReachedThreshold={1.5}
+                    onEndReached={() => setPage(prevState => prevState + 1)}
+                    renderItem={card => <Card cardData={card.item} />}
+                />
             )}
         </View>
     );
