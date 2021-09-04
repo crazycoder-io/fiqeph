@@ -37,12 +37,6 @@ export interface HomeScreenProps {
     };
 }
 
-export interface SearchComponentProps {
-    navigation: {
-        navigate(route: string): void;
-    };
-}
-
 export type Error = {
     message: string;
 };
