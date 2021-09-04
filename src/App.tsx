@@ -2,31 +2,11 @@
 import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {createStackNavigator} from "@react-navigation/stack";
 import SplashScreen from "react-native-splash-screen";
 import {BottomNavigation, Header} from "./components";
-import {HomeScreen, DetailScreen, SearchScreen} from "./screens";
+import {HomeScreen, SearchScreen} from "./screens";
 
-const Stack = createStackNavigator(); // Create a stack navigator to moving between Home & Detail
 const Tab = createBottomTabNavigator(); // Create a bottom tab navigator through react navigation
-
-const HomeStack = () => (
-    <Stack.Navigator
-        screenOptions={{
-            header: props => {
-                const {headerTitle} = props.options;
-                return (
-                    <Header
-                        title={headerTitle ? headerTitle : "fiqeph"}
-                        navigation={props.navigation}
-                    />
-                );
-            }
-        }}>
-        <Stack.Screen name="Home" component={HomeScreen} options={{headerTitle: "Home"}} />
-        <Stack.Screen name="Detail" component={DetailScreen} options={{headerTitle: "Detail"}} />
-    </Stack.Navigator>
-);
 
 const App = (): JSX.Element => {
     React.useEffect(() => {
@@ -47,7 +27,11 @@ const App = (): JSX.Element => {
                         );
                     }
                 }}>
-                <Tab.Screen name="HomeStack" component={HomeStack} options={{headerShown: false}} />
+                <Tab.Screen
+                    name="HomeStack"
+                    component={HomeScreen}
+                    options={{headerTitle: "Home"}}
+                />
                 <Tab.Screen
                     name="Search"
                     component={SearchScreen}
