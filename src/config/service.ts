@@ -1,8 +1,10 @@
 import axios from "axios";
+import {UNSPLASH_BASE_URL, UNSPLASH_API_KEY} from "@env";
 
 // Set config defaults when creating the instance
+
 const API_INSTANCE = axios.create({
-    baseURL: process.env.UNSPLASH_API_KEY,
+    baseURL: UNSPLASH_BASE_URL,
     timeout: 5000,
     headers: {"Content-Type": "application/json"}
 });
@@ -11,6 +13,8 @@ const API_INSTANCE = axios.create({
 API_INSTANCE.interceptors.request.use(
     config => {
         // Do something before request is sent
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        config.headers["Authorization"] = "Client-ID " + UNSPLASH_API_KEY;
         return config;
     },
     error => {
