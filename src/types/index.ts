@@ -7,10 +7,16 @@ export interface BottomNavigationProps {
     };
 }
 
-type CardData = {
+export type CardData = {
     uri: string;
     title: string;
-    id: number;
+    id: string;
+    likes: number;
+    user: {
+        username: string;
+        name: string;
+        portfolio_url: string;
+    };
 };
 
 export interface CardComponentProps {

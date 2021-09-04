@@ -3,11 +3,11 @@ import {View, StyleSheet, ScrollView} from "react-native";
 import {Searchbar} from "react-native-paper";
 import {PHOTOS} from "../utils/SampleDummyData";
 import {Card} from "../components";
-import {SearchComponentProps} from "../types";
+import {SearchComponentProps, CardData} from "../types";
 
 const Search: React.FC<SearchComponentProps> = props => {
     const [searchQuery, setSearchQuery] = React.useState("");
-    const [photos, setPhoto] = React.useState<Array<{id: number; title: string; uri: string}>>([]);
+    const [photos, setPhoto] = React.useState<Array<CardData>>([]);
 
     const onChangeSearch = (query: string) => setSearchQuery(query);
     const makeCall = () => {
