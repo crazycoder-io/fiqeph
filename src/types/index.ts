@@ -20,10 +20,7 @@ export type CardData = {
 };
 
 export interface CardComponentProps {
-    cardData: Array<CardData>;
-    navigation: {
-        navigate(route: string): void;
-    };
+    cardData: CardData;
 }
 
 export interface HeaderComponentProps {
@@ -52,9 +49,11 @@ export type Error = {
 
 export type Actions = {
     type: string;
-    actions: {
-        [key: string]: string;
-    };
+    payload:
+        | {
+              [key: string]: string;
+          }
+        | Array<CardData>;
 };
 
 export type AppState = {
@@ -62,3 +61,23 @@ export type AppState = {
         downloaded: boolean;
     };
 };
+
+export type PhotoSate = {
+    photosReducer: {
+        photos_list: Array<CardData>;
+        photos_list_loading: boolean;
+        error: undefined;
+    };
+};
+
+export type SearchSate = {
+    searchReducer: {
+        search_photos_list: Array<CardData>;
+        search_photos_list_loading: boolean;
+        error: undefined;
+    };
+};
+
+export interface TransparentViewProps {
+    visible: boolean;
+}
