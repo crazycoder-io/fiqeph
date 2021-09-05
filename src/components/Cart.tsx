@@ -1,6 +1,6 @@
 import React from "react";
-import {StyleSheet} from "react-native";
-import {Card, IconButton, Colors, Title, Paragraph} from "react-native-paper";
+import {StyleSheet, Image} from "react-native";
+import {Card, IconButton, Colors, Title, Paragraph, Portal, Modal} from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {useDispatch} from "react-redux";
 import {CardComponentProps} from "../types";
@@ -17,10 +17,30 @@ const Cart: React.FC<CardComponentProps> = (props): JSX.Element => {
         dispatch(endDownloadImage());
     };
 
+    const [visible, setVisible] = React.useState(false);
+
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+
     return (
         <>
+            <Portal>
+                <Modal
+                    visible={visible}
+                    onDismiss={hideModal}
+                    contentContainerStyle={styles.modalStyle}>
+                    <IconButton
+                        size={20}
+                        color="#FFF"
+                        icon="close"
+                        style={styles.closeButton}
+                        onPress={hideModal}
+                    />
+                    <Image source={{uri: cardData.uri}} style={{width: "100%", height: "50%"}} />
+                </Modal>
+            </Portal>
             {cardData ? (
-                <Card key={cardData.id} style={styles.card}>
+                <Card onPress={showModal} key={cardData.id} style={styles.card}>
                     <Card.Title title={cardData.title} subtitle={"@" + cardData.user.username} />
                     <Card.Cover source={{uri: cardData.uri}} />
                     <Card.Content>
@@ -55,6 +75,19 @@ const styles = StyleSheet.create({
     card: {
         marginTop: 5,
         marginBottom: 5
+    },
+    closeButton: {
+        position: "absolute",
+        backgroundColor: Colors.red500,
+        top: 0,
+        right: 0,
+        padding: 5
+    },
+    modalStyle: {
+        display: "flex",
+        flex: 1,
+        width: "100%",
+        backgroundColor: "rgba(255, 255, 255, .4)"
     }
 });
 
